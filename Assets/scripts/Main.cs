@@ -1,6 +1,5 @@
 ﻿using UnityEngine;
 using System.Collections;
-using UnityEditor;
 
 public class Main : MonoBehaviour {
 	private GameObject _snakey;
@@ -9,13 +8,13 @@ public class Main : MonoBehaviour {
 	private const float speed = 0.07f;
 	void Start () {
 		_snakey = GameObject.Find("snakey");
-		print (AssetDatabase.GetAssetPath(_snakey.GetComponent<SpriteRenderer>().sprite));
 		CreateFruits();
 	}
 	
 	void OnCollisionEnter2D(Collision2D col) {
 		if (col.gameObject.name == "apple"
-		    || col.gameObject.name == "orange") {
+		    || col.gameObject.name == "orange"
+		    || col.gameObject.name.Contains("fruit")) {
 		    	Destroy(col.gameObject);
 		    }
 	}
@@ -28,11 +27,6 @@ public class Main : MonoBehaviour {
 		}
 		if (Input.GetKey(KeyCode.DownArrow)) {
 			dY -= speed;
-			/*Vector3 angle = snakey.transform.eulerAngles;
-			snakey.transform.eulerAngles = new Vector3(0, 0, 90);
-			snakey.transform.position =
-				new Vector3(snakey.transform.localPosition.x,
-				snakey.transform.localPosition.y - speed, 0);*/
 		}
 		if (Input.GetKey(KeyCode.LeftArrow)) {
 			dX -= speed;
@@ -56,11 +50,12 @@ public class Main : MonoBehaviour {
 	
 	void CreateFruits () {
 		GameObject obj = new GameObject("fruit");
-		Object tmp = Resources.Load("sprites/apple.png");
-		if (tmp == null) print ("No such sprite fruit");
-		AssetBundle.CreateFromFile(
-		//obj.AddComponent<SpriteRenderer>().sprite = tmp;
-		//Instantiate(obj, new Vector3(3, -3, 0), Quaternion.identity);
+		obj.transform.localPosition = new Vector3(-2.5f, -4.0f, 0);
+		
+		obj.AddComponent<SpriteRenderer>().sprite =
+			Resources.Load<Sprite>("sprites/orange");
+		obj.AddComponent<PolygonCollider2D>();
+		Instantiate(obj, new Vector3(3, -3, 0), Quaternion.identity);
 	}
 	
 	// Update is called once per frame
