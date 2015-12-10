@@ -56,6 +56,10 @@ public class Main : MonoBehaviour {
 			Resources.Load<Sprite>("sprites/orange");
 		obj.AddComponent<PolygonCollider2D>();
 		Instantiate(obj, new Vector3(3, -3, 0), Quaternion.identity);
+
+
+		Instantiate (GameObject.Find ("apple"), new Vector3(3, 3, 0), Quaternion.identity);
+		Instantiate (Resources.Load("apple"), new Vector3(3, 1, 0), Quaternion.identity);
 	}
 	
 	// Update is called once per frame
