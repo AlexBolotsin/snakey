@@ -3,6 +3,7 @@ using System.Collections;
 
 public class Main : MonoBehaviour {
 	private GameObject _snakey;
+	public GameObject apple;
 	// Use this for initialization
 	
 	private const float speed = 0.07f;
@@ -12,8 +13,8 @@ public class Main : MonoBehaviour {
 	}
 	
 	void OnCollisionEnter2D(Collision2D col) {
-		if (col.gameObject.name == "apple"
-		    || col.gameObject.name == "orange"
+		if (col.gameObject.name.Contains("apple")
+		    || col.gameObject.name.Contains("orange")
 		    || col.gameObject.name.Contains("fruit")) {
 		    	Destroy(col.gameObject);
 		    }
@@ -57,15 +58,14 @@ public class Main : MonoBehaviour {
 		obj.AddComponent<PolygonCollider2D>();
 		Instantiate(obj, new Vector3(3, -3, 0), Quaternion.identity);
 
-
 		Instantiate (GameObject.Find ("apple"), new Vector3(3, 3, 0), Quaternion.identity);
 		Instantiate (Resources.Load("apple"), new Vector3(3, 1, 0), Quaternion.identity);
+		Instantiate (apple, new Vector3(-2, 5, 0), Quaternion.identity);
 	}
 	
 	// Update is called once per frame
 	void Update () {
 		Move();
-		
 		
 	}
 }
